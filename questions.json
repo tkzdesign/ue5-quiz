@@ -109,6 +109,39 @@
       ],
       "answer": 0,
       "explanation": "Outliner（ワールドアウトライナー）は、現在のレベル内のアクターを階層的に一覧表示します。"
+    },
+    {
+      "question": "Unreal Engine プロジェクトの Binaries フォルダに入るものはどれですか？",
+      "choices": [
+        "実行ファイルなど、コンパイルで作られるファイル",
+        "テクスチャやメッシュなどの元アセット",
+        "プロジェクトの設定ファイル（.ini）のみ",
+        "自動保存されたレベルのみ"
+      ],
+      "answer": 0,
+      "explanation": "Binaries フォルダには、実行ファイルなどコンパイルで作られるファイルが入ります。"
+    },
+    {
+      "question": "Unreal Engine プロジェクトの Build フォルダに入るものはどれですか？",
+      "choices": [
+        "プラットフォーム別ビルドに必要なファイル",
+        "シェーダーの一時ファイル",
+        "ログファイル",
+        "自動保存ファイル"
+      ],
+      "answer": 0,
+      "explanation": "Build フォルダには、プラットフォーム別のビルドに必要なファイルが入ります。"
+    },
+    {
+      "question": "Epic の公式情報で、削除しても再生成できるとされているフォルダの組み合わせはどれですか？",
+      "choices": [
+        "Intermediate と Saved",
+        "Content と Source",
+        "Content と Saved",
+        "Source と Intermediate"
+      ],
+      "answer": 0,
+      "explanation": "Intermediate と Saved は削除しても再生成できます（Epic公式に記載）。ただし Saved の中身は削除すると戻らないものがあります。"
     }
   ],
   "intermediate": [
@@ -221,6 +254,39 @@
       ],
       "answer": 0,
       "explanation": "Sequencer（Level Sequence）はシネマティックの作成・編集に使うマルチトラックのエディタです。"
+    },
+    {
+      "question": "Intermediate フォルダについて正しい説明はどれですか？",
+      "choices": [
+        "ビルド時の一時ファイルが入り、プロジェクトではシェーダーもここに保存される",
+        "実行ファイルが入る",
+        "プラットフォーム別ビルドに必要なファイルが入る",
+        "ローカル設定（.ini）とログが入る"
+      ],
+      "answer": 0,
+      "explanation": "Intermediate はビルド時の一時ファイルのフォルダで、プロジェクトではシェーダーもここに保存されます。"
+    },
+    {
+      "question": "DerivedDataCache フォルダを削除した場合、どうなりますか？",
+      "choices": [
+        "削除できるが、次回のロード時間が長くなる",
+        "プロジェクトが開けなくなる",
+        "自動保存が消える",
+        "実行ファイルが消える"
+      ],
+      "answer": 0,
+      "explanation": "DerivedDataCache はロード時に生成される派生データのキャッシュです。削除できますが、次回のロード時間が長くなります。"
+    },
+    {
+      "question": "Intermediate と Saved は再生成できますが、Saved を削除すると戻らないものはどれですか？",
+      "choices": [
+        "自動保存・ローカル設定（.ini）・ログ",
+        "シェーダー",
+        "実行ファイル",
+        "プラットフォーム別ビルドに必要なファイル"
+      ],
+      "answer": 0,
+      "explanation": "Saved には自動保存・ローカル設定（.ini）・ログが入っており、削除するとその中身は戻りません。"
     }
   ],
   "advanced": [
@@ -333,6 +399,28 @@
       ],
       "answer": 0,
       "explanation": "Virtual Shadow Maps は高解像度の影を扱う仕組みで、Nanite のような高精細なジオメトリと組み合わせて使われます。"
+    },
+    {
+      "question": "Aximmetry 連携時、クックで生成されたファイルが保存されているフォルダの組み合わせはどれですか？",
+      "choices": [
+        "Intermediate・Saved・Binaries",
+        "Content・Source・Config",
+        "DerivedDataCache・Build・Content",
+        "Source・Build・Config"
+      ],
+      "answer": 0,
+      "explanation": "Aximmetry 連携時は、クックで生成されたファイルが Intermediate・Saved・Binaries にあります。"
+    },
+    {
+      "question": "Aximmetry 連携時に Intermediate・Saved・Binaries を削除した場合、何が必要になりますか？",
+      "choices": [
+        "再クック",
+        "DerivedDataCache の再生成のみ",
+        "何も必要ない",
+        "Build フォルダの再作成"
+      ],
+      "answer": 0,
+      "explanation": "クックで生成されたファイルがこれらのフォルダにあるため、削除すると再クックが必要になります。"
     }
   ]
 }
