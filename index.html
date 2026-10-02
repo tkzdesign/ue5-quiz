@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UE5 学習クイズ</title>
+<style>
+  :root {
+    --bg: #f4f6fa; --card: #fff; --text: #1c2333; --muted: #5b6579;
+    --primary: #2f6fed; --ok: #1e9e5a; --ok-bg: #e6f6ee; --ng: #d6455d; --ng-bg: #fde9ec;
+    --border: #d5dbe7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12161f; --card: #1c2230; --text: #e8ecf5; --muted: #9aa5bb;
+      --primary: #5b8cff; --ok: #3ccf85; --ok-bg: #16352a; --ng: #ff6b81; --ng-bg: #3a1c24;
+      --border: #2e3648;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif; line-height: 1.6; }
+  main { max-width: 720px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 1.5rem; margin: 8px 0 16px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .hidden { display: none !important; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  button:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+  .level-btn { display: block; width: 100%; text-align: left; margin: 10px 0; padding: 14px 16px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px; }
+  .level-btn:hover { border-color: var(--primary); }
+  .level-btn strong { font-size: 1.1rem; }
+  .level-btn small { display: block; color: var(--muted); }
+  .primary { background: var(--primary); color: #fff; border: 0; border-radius: 8px; padding: 10px 24px; }
+  .secondary { background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 10px 24px; }
+  .progress { color: var(--muted); font-size: .9rem; margin-bottom: 8px; display: flex; justify-content: space-between; }
+  .bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 16px; }
+  .bar > div { height: 100%; background: var(--primary); transition: width .2s; }
+  #question { font-size: 1.15rem; font-weight: 600; margin: 0 0 16px; white-space: pre-wrap; }
+  .choice { display: block; width: 100%; text-align: left; margin: 8px 0; padding: 12px 14px;
+    background: var(--card); border: 2px solid var(--border); border-radius: 10px; }
+  .choice:not(:disabled):hover { border-color: var(--primary); }
+  .choice:disabled { cursor: default; }
+  .choice.correct { border-color: var(--ok); background: var(--ok-bg); }
+  .choice.wrong { border-color: var(--ng); background: var(--ng-bg); }
+  #feedback { margin-top: 16px; padding: 14px; border-radius: 10px; }
+  #feedback.ok { background: var(--ok-bg); }
+  #feedback.ng { background: var(--ng-bg); }
+  #verdict { font-weight: 700; font-size: 1.1rem; margin: 0 0 4px; }
+  #feedback.ok #verdict { color: var(--ok); }
+  #feedback.ng #verdict { color: var(--ng); }
+  #explanation { margin: 0 0 12px; white-space: pre-wrap; }
+  .score { font-size: 2.4rem; font-weight: 700; margin: 8px 0; }
+  .pass { color: var(--ok); } .fail { color: var(--ng); }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .history { margin-top: 24px; }
+  .history h2 { font-size: 1rem; margin: 0 0 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  .error { color: var(--ng); }
+</style>
+</head>
+<body>
+<main>
+  <h1>UE5 学習クイズ</h1>
+
+  <section id="screen-start" class="card">
+    <p>レベルを選んでください。選んだレベルからランダムに10問出題されます（<span id="pass-rule"></span>）。</p>
+    <div id="level-list"></div>
+    <p id="load-error" class="error hidden"></p>
+    <div class="history" id="history"></div>
+  </section>
+
+  <section id="screen-quiz" class="card hidden" aria-live="polite">
+    <div class="progress"><span id="level-label"></span><span id="progress-text"></span></div>
+    <div class="bar"><div id="progress-bar"></div></div>
+    <p id="question"></p>
+    <div id="choices"></div>
+    <div id="feedback" class="hidden">
+      <p id="verdict"></p>
+      <p id="explanation"></p>
+      <button id="next-btn" class="primary" type="button">次へ</button>
+    </div>
+  </section>
+
+  <section id="screen-result" class="card hidden">
+    <div id="result-level"></div>
+    <div class="score" id="result-score"></div>
+    <p id="result-detail"></p>
+    <div class="actions">
+      <button id="retry-btn" class="primary" type="button">もう一度挑戦</button>
+      <button id="home-btn" class="secondary" type="button">レベル選択へ</button>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var QUESTIONS_PER_QUIZ = 10;
+  var PASS_RATE = 0.7;
+  var STORAGE_KEY = 'ue5quiz.results';
+  var MAX_HISTORY = 50;
+  var LEVELS = [
+    { id: 'beginner', name: '初級', desc: 'UE5 エディタと基本用語' },
+    { id: 'intermediate', name: '中級', desc: '主要機能とクラスの理解' },
+    { id: 'advanced', name: '上級', desc: 'C++・大規模開発・最新機能' }
+  ];
+
+  var allQuestions = null;
+  var state = null;
+
+  function $(id) { return document.getElementById(id); }
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function levelName(id) {
+    for (var i = 0; i < LEVELS.length; i++) if (LEVELS[i].id === id) return LEVELS[i].name;
+    return id;
+  }
+
+  function show(name) {
+    ['start', 'quiz', 'result'].forEach(function (n) {
+      $('screen-' + n).classList.toggle('hidden', n !== name);
+    });
+  }
+
+  /* ---- localStorage ---- */
+  function loadResults() {
+    try {
+      var data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      return Array.isArray(data) ? data : [];
+    } catch (e) { return []; }
+  }
+
+  function saveResult(result) {
+    try {
+      var list = loadResults();
+      list.push(result);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list.slice(-MAX_HISTORY)));
+    } catch (e) { /* 保存できなくても続行 */ }
+  }
+
+  /* ---- start screen ---- */
+  function renderStart() {
+    var results = loadResults();
+    var list = $('level-list');
+    list.textContent = '';
+    LEVELS.forEach(function (lv) {
+      var mine = results.filter(function (r) { return r.level === lv.id; });
+      var best = mine.reduce(function (m, r) { return Math.max(m, r.rate); }, -1);
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'level-btn';
+      var title = document.createElement('strong');
+      title.textContent = lv.name;
+      var sub = document.createElement('small');
+      sub.textContent = lv.desc + (mine.length ? '　ベスト ' + best + '%（' + mine.length + '回挑戦）' : '　未挑戦');
+      btn.appendChild(title);
+      btn.appendChild(sub);
+      btn.addEventListener('click', function () { startQuiz(lv.id); });
+      list.appendChild(btn);
+    });
+
+    var hist = $('history');
+    hist.textContent = '';
+    if (results.length) {
+      var h = document.createElement('h2');
+      h.textContent = '最近の成績';
+      hist.appendChild(h);
+      var table = document.createElement('table');
+      var head = document.createElement('tr');
+      ['日時', 'レベル', '正解', '正答率', '結果'].forEach(function (t) {
+        var th = document.createElement('th'); th.textContent = t; head.appendChild(th);
+      });
+      table.appendChild(head);
+      results.slice(-5).reverse().forEach(function (r) {
+        var tr = document.createElement('tr');
+        [new Date(r.date).toLocaleString('ja-JP'), levelName(r.level), r.correct + '/' + r.total,
+         r.rate + '%', r.passed ? '合格' : '不合格'].forEach(function (t) {
+          var td = document.createElement('td'); td.textContent = t; tr.appendChild(td);
+        });
+        table.appendChild(tr);
+      });
+      hist.appendChild(table);
+    }
+    show('start');
+  }
+
+  /* ---- quiz ---- */
+  function startQuiz(levelId) {
+    var pool = allQuestions[levelId] || [];
+    var picked = shuffle(pool).slice(0, QUESTIONS_PER_QUIZ).map(function (q) {
+      var order = shuffle(q.choices.map(function (_, i) { return i; }));
+      return {
+        question: q.question,
+        explanation: q.explanation,
+        choices: order.map(function (i) { return q.choices[i]; }),
+        answer: order.indexOf(q.answer)
+      };
+    });
+    state = { level: levelId, items: picked, index: 0, correct: 0 };
+    show('quiz');
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    var item = state.items[state.index];
+    var total = state.items.length;
+    $('level-label').textContent = levelName(state.level);
+    $('progress-text').textContent = (state.index + 1) + ' / ' + total;
+    $('progress-bar').style.width = (state.index / total * 100) + '%';
+    $('question').textContent = item.question;
+    $('feedback').classList.add('hidden');
+    var box = $('choices');
+    box.textContent = '';
+    item.choices.forEach(function (text, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'choice';
+      b.textContent = String.fromCharCode(65 + i) + '. ' + text;
+      b.addEventListener('click', function () { answer(i); });
+      box.appendChild(b);
+    });
+  }
+
+  function answer(selected) {
+    var item = state.items[state.index];
+    var ok = selected === item.answer;
+    if (ok) state.correct++;
+    var buttons = $('choices').children;
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = true;
+      if (i === item.answer) buttons[i].classList.add('correct');
+      else if (i === selected) buttons[i].classList.add('wrong');
+    }
+    var fb = $('feedback');
+    fb.className = ok ? 'ok' : 'ng';
+    $('verdict').textContent = ok ? '⭕ 正解！' : '❌ 不正解（正解は ' + String.fromCharCode(65 + item.answer) + '）';
+    $('explanation').textContent = item.explanation;
+    var last = state.index === state.items.length - 1;
+    $('next-btn').textContent = last ? '結果を見る' : '次へ';
+    $('next-btn').focus();
+  }
+
+  function next() {
+    if (state.index < state.items.length - 1) {
+      state.index++;
+      renderQuestion();
+    } else {
+      finish();
+    }
+  }
+
+  function finish() {
+    var total = state.items.length;
+    var rate = Math.round(state.correct / total * 100);
+    var passed = state.correct / total >= PASS_RATE;
+    saveResult({ level: state.level, correct: state.correct, total: total, rate: rate,
+                 passed: passed, date: new Date().toISOString() });
+    $('result-level').textContent = 'レベル: ' + levelName(state.level);
+    var score = $('result-score');
+    score.textContent = '正答率 ' + rate + '%　' + (passed ? '合格 🎉' : '不合格');
+    score.className = 'score ' + (passed ? 'pass' : 'fail');
+    $('result-detail').textContent = total + '問中 ' + state.correct + '問正解（合格ライン ' +
+      Math.round(PASS_RATE * 100) + '%）';
+    show('result');
+  }
+
+  /* ---- init ---- */
+  $('pass-rule').textContent = Math.round(PASS_RATE * 100) + '%以上で合格';
+  $('next-btn').addEventListener('click', next);
+  $('retry-btn').addEventListener('click', function () { startQuiz(state.level); });
+  $('home-btn').addEventListener('click', renderStart);
+
+  fetch('questions.json')
+    .then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function (data) { allQuestions = data; renderStart(); })
+    .catch(function () {
+      renderStart();
+      var err = $('load-error');
+      err.textContent = '問題データ (questions.json) を読み込めませんでした。' +
+        'ファイルを直接開いている場合は、ローカルサーバー（例: python3 -m http.server）経由で開いてください。';
+      err.classList.remove('hidden');
+      $('level-list').textContent = '';
+    });
+})();
+</script>
+</body>
+</html>
