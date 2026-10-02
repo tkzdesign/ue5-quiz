@@ -1,0 +1,338 @@
+{
+  "beginner": [
+    {
+      "question": "Unreal Engine のネイティブコード（ゲームプレイコード）で主に使われるプログラミング言語はどれですか？",
+      "choices": [
+        "C#",
+        "C++",
+        "Java",
+        "Python"
+      ],
+      "answer": 1,
+      "explanation": "Unreal Engine のゲームプレイコードは主に C++ で書かれます。C++ を使わずに Blueprint でもゲームロジックを作成できます。"
+    },
+    {
+      "question": "Blueprint とは何ですか？",
+      "choices": [
+        "3Dモデルの設計図ファイル",
+        "ノードをつないでロジックを組むビジュアルスクリプティングシステム",
+        "アニメーションの書き出し形式",
+        "パッケージ用の設定ファイル"
+      ],
+      "answer": 1,
+      "explanation": "Blueprint はノードを接続してゲームロジックを作成できる、Unreal Engine のビジュアルスクリプティングシステムです。"
+    },
+    {
+      "question": "プロジェクト内のアセット（メッシュ、マテリアル、テクスチャなど）を閲覧・管理するパネルはどれですか？",
+      "choices": [
+        "Outliner",
+        "Details",
+        "Content Browser",
+        "Viewport"
+      ],
+      "answer": 2,
+      "explanation": "Content Browser はプロジェクト内のアセットを閲覧・整理・管理するためのパネルです。"
+    },
+    {
+      "question": "レベルに配置できるオブジェクトの基底クラスはどれですか？",
+      "choices": [
+        "Actor",
+        "Component",
+        "Material",
+        "Widget"
+      ],
+      "answer": 0,
+      "explanation": "Actor はレベルに配置またはスポーンできるオブジェクトの基底クラスです。"
+    },
+    {
+      "question": "エディタ上で Play（Play In Editor）を開始する既定のショートカットキーはどれですか？",
+      "choices": [
+        "Ctrl+S",
+        "F11",
+        "Alt+P",
+        "Shift+F1"
+      ],
+      "answer": 2,
+      "explanation": "既定では Alt+P でレベルエディタから Play In Editor を開始できます。"
+    },
+    {
+      "question": "Static Mesh について正しい説明はどれですか？",
+      "choices": [
+        "ボーンを持ち変形アニメーションする3Dモデル",
+        "頂点データで構成される、レベルに配置できる3Dジオメトリのアセット",
+        "サウンドを再生するアセット",
+        "UI を描画するアセット"
+      ],
+      "answer": 1,
+      "explanation": "Static Mesh は頂点などのジオメトリデータで構成される3Dモデルのアセットで、レベルに配置して使用します。"
+    },
+    {
+      "question": "ゲームの世界を構成するアクターなどを保存したものを何と呼びますか？",
+      "choices": [
+        "Level（マップ）",
+        "Material",
+        "Sprite",
+        "Shader Cache"
+      ],
+      "answer": 0,
+      "explanation": "Level（マップ）にはアクターなどが配置され、ゲームの世界を構成します。マップファイルは .umap として保存されます。"
+    },
+    {
+      "question": "オブジェクトの表面の見た目（色や質感など）を定義するアセットはどれですか？",
+      "choices": [
+        "Material",
+        "Animation Sequence",
+        "Sound Cue",
+        "Data Table"
+      ],
+      "answer": 0,
+      "explanation": "Material はサーフェスの見た目を定義するアセットです。"
+    },
+    {
+      "question": "レベル内で選択したオブジェクトのプロパティを確認・編集するパネルはどれですか？",
+      "choices": [
+        "Content Browser",
+        "Details パネル",
+        "Output Log",
+        "Message Log"
+      ],
+      "answer": 1,
+      "explanation": "Details パネルでは、選択中のアクターやコンポーネントのプロパティを確認・編集できます。"
+    },
+    {
+      "question": "現在のレベルに配置されているアクターを一覧表示するパネルはどれですか？",
+      "choices": [
+        "Outliner",
+        "Content Drawer",
+        "Source Control",
+        "Place Actors"
+      ],
+      "answer": 0,
+      "explanation": "Outliner（ワールドアウトライナー）は、現在のレベル内のアクターを階層的に一覧表示します。"
+    }
+  ],
+  "intermediate": [
+    {
+      "question": "Nanite の説明として正しいものはどれですか？",
+      "choices": [
+        "仮想化ジオメトリシステム",
+        "物理シミュレーションシステム",
+        "オーディオ合成システム",
+        "ネットワーク同期システム"
+      ],
+      "answer": 0,
+      "explanation": "Nanite は仮想化ジオメトリシステムで、非常に詳細なメッシュを効率的に描画できます。"
+    },
+    {
+      "question": "Lumen の説明として正しいものはどれですか？",
+      "choices": [
+        "パーティクルシステム",
+        "完全ダイナミックなグローバルイルミネーションとリフレクションのシステム",
+        "アニメーションリターゲットの機能",
+        "地形生成ツール"
+      ],
+      "answer": 1,
+      "explanation": "Lumen は完全にダイナミックなグローバルイルミネーションとリフレクションのシステムです。"
+    },
+    {
+      "question": "UE5 の Enhanced Input システムで、入力を抽象化して定義するアセットはどれですか？",
+      "choices": [
+        "Input Action",
+        "Animation Montage",
+        "Physics Asset",
+        "Level Sequence"
+      ],
+      "answer": 0,
+      "explanation": "Enhanced Input では Input Action で入力の意味を定義し、Input Mapping Context で実際のキー等に割り当てます。"
+    },
+    {
+      "question": "Niagara は何のためのシステムですか？",
+      "choices": [
+        "レベルストリーミング",
+        "ビジュアルエフェクト（VFX）の作成",
+        "UI レイアウト",
+        "ビルド自動化"
+      ],
+      "answer": 1,
+      "explanation": "Niagara は Unreal Engine のビジュアルエフェクト（VFX）システムです。"
+    },
+    {
+      "question": "Character クラスについて正しい説明はどれですか？",
+      "choices": [
+        "Actor を継承しない独立したクラス",
+        "移動用の CharacterMovementComponent を備えた Pawn の派生クラス",
+        "UI専用のクラス",
+        "レベルのルールを定義するクラス"
+      ],
+      "answer": 1,
+      "explanation": "Character は Pawn の派生クラスで、CharacterMovementComponent などを備え、歩行などの移動を扱えます。"
+    },
+    {
+      "question": "ゲームのルール（スポーンするPawnの種類など）を定義するクラスはどれですか？",
+      "choices": [
+        "GameMode",
+        "Material Instance",
+        "Skeletal Mesh",
+        "Spline"
+      ],
+      "answer": 0,
+      "explanation": "GameMode はゲームのルールを定義し、既定のPawnやPlayerControllerなどを指定します。"
+    },
+    {
+      "question": "Blueprint Interface の用途として正しいものはどれですか？",
+      "choices": [
+        "アセットの圧縮",
+        "異なるクラス間で共通の関数呼び出しを可能にする",
+        "シェーダーのコンパイル",
+        "レベルの照明ベイク"
+      ],
+      "answer": 1,
+      "explanation": "Blueprint Interface を使うと、継承関係のないクラス同士でも共通の関数を介してやり取りできます。"
+    },
+    {
+      "question": "Data Table について正しい説明はどれですか？",
+      "choices": [
+        "行構造体に基づく表形式のデータを扱うアセット",
+        "テクスチャを格納するアセット",
+        "物理マテリアルのアセット",
+        "カメラ設定のアセット"
+      ],
+      "answer": 0,
+      "explanation": "Data Table は構造体を行の型とする表形式のデータで、CSV や JSON からインポートすることもできます。"
+    },
+    {
+      "question": "Event Tick はいつ呼び出されますか？",
+      "choices": [
+        "ゲーム開始時の1回だけ",
+        "毎フレーム",
+        "アクターが破棄されたとき",
+        "レベルを保存したとき"
+      ],
+      "answer": 1,
+      "explanation": "Event Tick は毎フレーム呼び出されます。頻繁な処理は負荷に注意が必要です。"
+    },
+    {
+      "question": "シネマティック（カットシーンなど）を作成するためのツールはどれですか？",
+      "choices": [
+        "Sequencer",
+        "Niagara",
+        "Content Browser",
+        "Build Settings"
+      ],
+      "answer": 0,
+      "explanation": "Sequencer（Level Sequence）はシネマティックの作成・編集に使うマルチトラックのエディタです。"
+    }
+  ],
+  "advanced": [
+    {
+      "question": "World Partition の説明として正しいものはどれですか？",
+      "choices": [
+        "大規模ワールドをグリッドに分割して自動的にストリーミングする仕組み",
+        "アニメーションの分割機能",
+        "マテリアルの分割機能",
+        "ネットワークパケットの分割機能"
+      ],
+      "answer": 0,
+      "explanation": "World Partition は大規模ワールドをセルに分割し、必要な部分をストリーミングして扱う仕組みです。"
+    },
+    {
+      "question": "C++ で UObject 派生クラスのメンバー変数に UPROPERTY() を付ける理由として適切なものはどれですか？",
+      "choices": [
+        "コンパイルを高速化するため",
+        "ガベージコレクションにリファレンスを認識させ、エディタ・Blueprint公開などのリフレクションを使うため",
+        "変数を const にするため",
+        "メモリを手動解放するため"
+      ],
+      "answer": 1,
+      "explanation": "UPROPERTY によりリフレクション対象となり、ガベージコレクションが参照を追跡できます。エディタや Blueprint への公開にも使います。"
+    },
+    {
+      "question": "Gameplay Tags の特徴として正しいものはどれですか？",
+      "choices": [
+        "階層構造を持つ名前付きタグでアクターやシステムを識別・分類できる",
+        "テクスチャの圧縮設定",
+        "レベルのファイル名の規則",
+        "レンダリングのみで使われる機能"
+      ],
+      "answer": 0,
+      "explanation": "Gameplay Tags は Enemy.Boss のような階層構造を持つタグで、状態や分類の判定に使えます。"
+    },
+    {
+      "question": "MetaSounds とは何ですか？",
+      "choices": [
+        "高性能なオーディオ DSP グラフシステム",
+        "ネットワークボイスチャット専用機能",
+        "アニメーション用の曲線エディタ",
+        "テクスチャ生成機能"
+      ],
+      "answer": 0,
+      "explanation": "MetaSounds は高性能なオーディオ DSP グラフシステムで、サウンドをプロシージャルに作成できます。"
+    },
+    {
+      "question": "AActor を継承する C++ クラスの命名規則で、クラス名の先頭に付くプレフィックスはどれですか？",
+      "choices": [
+        "U",
+        "F",
+        "A",
+        "E"
+      ],
+      "answer": 2,
+      "explanation": "Actor の派生クラスは A、UObject 派生は U、構造体は F、列挙型は E のプレフィックスを付けるのが Unreal の命名規則です。"
+    },
+    {
+      "question": "Mass Entity について正しい説明はどれですか？",
+      "choices": [
+        "大量のエンティティを効率的にシミュレートするためのフレームワーク",
+        "テクスチャの一括変換ツール",
+        "UI のアニメーション機能",
+        "ビルドの並列化機能"
+      ],
+      "answer": 0,
+      "explanation": "Mass は大量のエンティティをデータ指向で効率的に処理するためのフレームワークです。"
+    },
+    {
+      "question": "マルチプレイで、サーバーからクライアントへ変数を同期させるために C++ で指定する UPROPERTY の指定子はどれですか？",
+      "choices": [
+        "Replicated",
+        "Transient",
+        "EditAnywhere",
+        "VisibleOnly"
+      ],
+      "answer": 0,
+      "explanation": "UPROPERTY(Replicated) を指定し、GetLifetimeReplicatedProps で登録することで変数をレプリケートできます。"
+    },
+    {
+      "question": "UE5 の既定の物理エンジンはどれですか？",
+      "choices": [
+        "Chaos",
+        "PhysX",
+        "Bullet",
+        "Havok"
+      ],
+      "answer": 0,
+      "explanation": "UE5 では Chaos が既定の物理システムです。"
+    },
+    {
+      "question": "パフォーマンスを詳細にプロファイリングするための Unreal Engine のツールはどれですか？",
+      "choices": [
+        "Unreal Insights",
+        "Blueprint Diff",
+        "Sequencer",
+        "Landscape Mode"
+      ],
+      "answer": 0,
+      "explanation": "Unreal Insights は Unreal Engine のトレース・プロファイリング用ツールで、CPU やメモリなどを詳しく解析できます。"
+    },
+    {
+      "question": "Virtual Shadow Maps は主にどの機能と組み合わせて高解像度の影を実現しますか？",
+      "choices": [
+        "Nanite などの高精細なジオメトリ",
+        "サウンド再生",
+        "入力処理",
+        "Blueprint のコンパイル"
+      ],
+      "answer": 0,
+      "explanation": "Virtual Shadow Maps は高解像度の影を扱う仕組みで、Nanite のような高精細なジオメトリと組み合わせて使われます。"
+    }
+  ]
+}
