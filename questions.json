@@ -177,7 +177,7 @@
       "explanation": "エミッターはパーティクルを生成する。中はスタックで、複数のグループにモジュールを入れて構成する。"
     },
     {
-      "question": "スタック内のモジュールは、どの順番で実行される？",
+      "question": "Niagaraのエミッターのスタック内で、モジュールはどの順番で実行される？",
       "choices": [
         "上から下へ",
         "下から上へ",
@@ -188,7 +188,7 @@
       "explanation": "シミュレーションはスタックの上から下へ流れ、モジュールが順に実行される。並べる順番が結果に影響する。"
     },
     {
-      "question": "Particle Spawn グループのモジュールは、いつ実行される？",
+      "question": "Niagaraのエミッターにある Particle Spawn グループのモジュールは、いつ実行される？",
       "choices": [
         "パーティクルが生まれたときに、パーティクルごとに1回",
         "毎フレーム、すべてのパーティクルに対して",
@@ -199,7 +199,7 @@
       "explanation": "Particle Spawn は、パーティクルが最初に生まれたときに1回呼ばれる。初期の大きさや色、速度などをここで決める。"
     },
     {
-      "question": "Particle Update グループのモジュールは、いつ実行される？",
+      "question": "Niagaraのエミッターにある Particle Update グループのモジュールは、いつ実行される？",
       "choices": [
         "毎フレーム、パーティクルごとに",
         "パーティクルが生まれたときに1回だけ",
@@ -210,7 +210,7 @@
       "explanation": "Particle Update は毎フレーム、パーティクルごとに呼ばれる。力や減衰など、時間で変化させる処理をここに置く。"
     },
     {
-      "question": "Spawn Rate モジュールの働きはどれ？",
+      "question": "Niagaraのエミッターで使う Spawn Rate モジュールの働きはどれ？",
       "choices": [
         "エミッターが動作している間、1秒あたりの数で連続的にパーティクルを出す",
         "指定した数のパーティクルを一度にまとめて出す",
@@ -221,7 +221,7 @@
       "explanation": "Spawn Rate は連続的な流れを作るモジュール。値は1秒あたりのスポーン数。"
     },
     {
-      "question": "Spawn Burst Instantaneous モジュールの働きはどれ？",
+      "question": "Niagaraのエミッターで使う Spawn Burst Instantaneous モジュールの働きはどれ？",
       "choices": [
         "指定した数のパーティクルを一度にまとめて出す",
         "1秒あたりの数で連続的にパーティクルを出す",
@@ -377,7 +377,7 @@
       "explanation": "Saved には自動保存・ローカル設定（.ini）・ログが入っており、削除するとその中身は戻りません。"
     },
     {
-      "question": "Emitter Update グループの説明として正しいものはどれ？",
+      "question": "Niagaraのエミッターにある Emitter Update グループの説明として正しいものはどれ？",
       "choices": [
         "エミッター単位のモジュールが、毎フレームCPU上で実行される",
         "パーティクルごとに、生まれたときだけ実行される",
@@ -388,7 +388,7 @@
       "explanation": "Emitter Update はエミッターレベルの処理で、毎フレームCPU上で実行される。Spawn Rate などのスポーン系モジュールはここに置く。"
     },
     {
-      "question": "エミッターの Sim Target は何を決める設定？",
+      "question": "Niagaraのエミッターの Sim Target は何を決める設定？",
       "choices": [
         "シミュレーションをCPUで行うかGPUで行うか",
         "パーティクルをスプライトにするかメッシュにするか",
@@ -399,7 +399,7 @@
       "explanation": "Sim Target は Emitter Properties にあり、シミュレーションの実行先をCPUかGPUかで切り替える。"
     },
     {
-      "question": "Sim Target をGPUに切り替えたとき、未設定だと警告が出ることがある項目はどれ？",
+      "question": "Niagaraのエミッターで Sim Target をGPUに切り替えたとき、未設定だと警告が出ることがある項目はどれ？",
       "choices": [
         "Fixed Bounds",
         "Local Space",
@@ -410,7 +410,7 @@
       "explanation": "GPUシミュレーションでは Fixed Bounds（固定バウンド）の設定が必要になる。エミッター側でも、System Properties でシステム全体に対しても設定できる。"
     },
     {
-      "question": "Emitter Properties の Local Space は何を切り替える設定？",
+      "question": "Niagaraのエミッターの Emitter Properties にある Local Space は何を切り替える設定？",
       "choices": [
         "パーティクルの位置を、エミッター基準にするかワールド基準にするか",
         "シミュレーションをCPUで行うかGPUで行うか",
@@ -432,7 +432,7 @@
       "explanation": "モジュールスタックで作ったシミュレーションを、同じエミッターの中で複数の方法でレンダリングできるのがNiagaraの特徴。Render はスタックの最後のグループ。"
     },
     {
-      "question": "Curl Noise Force モジュールの働きはどれ？",
+      "question": "Niagaraのパーティクルに力を加える Curl Noise Force モジュールの働きはどれ？",
       "choices": [
         "カールノイズの場を使って、Physics.Force に力を加える",
         "質量に関係なく、速度を直接減衰させる",
@@ -443,7 +443,7 @@
       "explanation": "うねるような不規則な動きを作る。主なパラメータは Noise Strength（強さ）と Noise Frequency（細かさ）。"
     },
     {
-      "question": "Drag モジュールの説明として正しいものはどれ？",
+      "question": "Niagaraのパーティクルに作用する Drag モジュールの説明として正しいものはどれ？",
       "choices": [
         "質量に関係なく、速度と回転速度に直接かかる",
         "質量が大きいほど強くかかる",
@@ -454,7 +454,7 @@
       "explanation": "Drag は速度と回転速度を直接減衰させる。Curl Noise Force などと組み合わせて、動きが暴れすぎないように抑える。"
     },
     {
-      "question": "Vortex Force モジュールの働きはどれ？",
+      "question": "Niagaraのパーティクルに力を加える Vortex Force モジュールの働きはどれ？",
       "choices": [
         "渦の軸まわりの速度を力として加える。中心へ引き寄せる力も足せる",
         "重力方向にだけ力を加える",
@@ -465,7 +465,7 @@
       "explanation": "軸まわりに回る動きを作る。落下など他の動きが強いと渦の効果が見えにくくなるので、強さのバランス調整が必要。"
     },
     {
-      "question": "Spawn Per Unit モジュールは、何に応じてパーティクルを出す？",
+      "question": "Niagaraのエミッターで使う Spawn Per Unit モジュールは、何に応じてパーティクルを出す？",
       "choices": [
         "エミッターが移動した距離",
         "経過した時間",
@@ -610,7 +610,7 @@
       "explanation": "クックで生成されたファイルがこれらのフォルダにあるため、削除すると再クックが必要になります。"
     },
     {
-      "question": "System Properties の Warmup Time の説明として正しいものはどれ？",
+      "question": "Niagaraシステムの System Properties にある Warmup Time の説明として正しいものはどれ？",
       "choices": [
         "秒で指定するウォームアップ時間で、Warmup Tick Count を手動で決めない場合にその計算に使われる",
         "パーティクルの寿命を秒で指定する",
@@ -632,7 +632,7 @@
       "explanation": "レベルに置いた個々のNiagaraコンポーネントで、システムアセットとは別のウォームアップを指定できる。"
     },
     {
-      "question": "MRQのウォームアップフレームの説明として正しいものはどれ？",
+      "question": "MRQ（Movie Render Queue）のウォームアップフレームの説明として正しいものはどれ？",
       "choices": [
         "各ショットの冒頭で出力せずにフレームを回し、NiagaraやChaosなどを温める",
         "GPUの準備だけを行い、シミュレーションは進めない",
@@ -643,7 +643,7 @@
       "explanation": "ウォームアップフレームは出力されないが、その間にシミュレーションは進む。連続して出続けるエフェクトを安定させるのに使う。"
     },
     {
-      "question": "MRQでレンダリングするときだけゲームモードを差し替えたい。MRQ側の該当する設定はどれ？",
+      "question": "MRQ（Movie Render Queue）でレンダリングするときだけゲームモードを差し替えたい。MRQ側の該当する設定はどれ？",
       "choices": [
         "Game Overrides の Game Mode Override",
         "Anti-Aliasing の Temporal Sample Count",
@@ -665,7 +665,7 @@
       "explanation": "Real Time Capture が扱うのは、大気・雲・ハイトフォグと、Is Sky を付けたUnlitマテリアルの不透明メッシュ。空用のメッシュにはこの設定が必要になる。"
     },
     {
-      "question": "Emitter Properties の Interpolated Spawning の説明として正しいものはどれ？",
+      "question": "Niagaraのエミッターの Emitter Properties にある Interpolated Spawning の説明として正しいものはどれ？",
       "choices": [
         "スポーンのコストは増えるが、高いスポーンレートや速く動くエミッターでスポーンが滑らかになる",
         "スポーンのコストが下がるが、動きが粗くなる",
